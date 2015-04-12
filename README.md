@@ -23,3 +23,12 @@ Generate to file
 
     make scrape > tower.ical
 
+## Example
+
+Here's daily generate `.ical` file for EFJY:
+
+http://skydivejkl.fi/finavia-bulletin-scraper/efjy.ical
+
+and as Google Calendar:
+
+https://www.google.com/calendar/embed?src=7oh3ljgqof39svbsrr8hqgph6i13grfh%40import.calendar.google.com&ctz=Europe/Helsinki 
