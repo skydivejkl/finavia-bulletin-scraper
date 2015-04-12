@@ -64,12 +64,17 @@ function generateICAL(openingHours) {
     openingHours.forEach(towerOpen => {
         var eventID = String(towerOpen.start.unix()) + String(towerOpen.end.unix());
         var e = new icalendar.VEvent(eventID);
+        var summary = "Torni auki";
 
         var diff = towerOpen.end.diff(towerOpen.start);
         var minutes = diff / 1000 / 60;
         var fullHours = Math.floor(minutes / 60);
         var remainingMinutes =  minutes % 60;
-        var summary = "Torni auki " + fullHours + "h";
+
+        if (fullHours) {
+            summary += " " + fullHours + "h";
+        }
+
         if (remainingMinutes) {
             summary += " " + remainingMinutes + "min";
         }
@@ -85,8 +90,6 @@ function generateICAL(openingHours) {
 fetchOpeningHours("https://ais.fi/ais/bulletins/envfra.htm", "JYVASKYLA TWR OPR HR:")
 .then(openingHours => {
     process.stdout.write(generateICAL(openingHours));
-    // console.log(openingHours);
-    // (generateICAL(openingHours));
 })
 .catch(function(err) {
     console.error(err.stack);
