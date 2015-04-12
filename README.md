@@ -1,7 +1,7 @@
 
 # Finavia Bulletin Scraper
 
-Scrapes tower opening hours for EFJY from the Finavia [bulletin][b] and formats
+Scrapes NOTAM tower opening hours for EFJY from the Finavia [bulletin][b] and formats
 it as [iCalendar][ical] which can used for example with Google Calendar.
 
 [b]: https://ais.fi/ais/bulletins/envfra.htm
