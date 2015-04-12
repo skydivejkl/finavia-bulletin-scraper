@@ -9,10 +9,11 @@ it as [iCalendar][ical] which can used for example with Google Calendar.
 
 ## Usage
 
-Install node.js npm and GNU Make and install deps:
+Install node.js, npm and GNU Make.
+
+Install deps
 
     make
-
 
 Generate iCalendar file to stdout from the current bulletin
 
