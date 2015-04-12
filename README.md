@@ -25,7 +25,7 @@ Generate to file
 
 ## Example
 
-Here's daily generate `.ical` file for EFJY:
+Here's daily generated `.ical` file for EFJY:
 
 http://skydivejkl.fi/finavia-bulletin-scraper/efjy.ical
 
