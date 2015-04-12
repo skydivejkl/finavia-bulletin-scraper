@@ -66,9 +66,15 @@ function generateICAL(openingHours) {
         var e = new icalendar.VEvent(eventID);
 
         var diff = towerOpen.end.diff(towerOpen.start);
-        var hours = diff / 1000 / 60 / 60;
+        var minutes = diff / 1000 / 60;
+        var fullHours = Math.floor(minutes / 60);
+        var remainingMinutes =  minutes % 60;
+        var summary = "Torni auki " + fullHours + "h";
+        if (remainingMinutes) {
+            summary += " " + remainingMinutes + "min";
+        }
 
-        e.setSummary("Torni auki " + hours + "h");
+        e.setSummary(summary);
         e.setDate(towerOpen.start.toDate(), towerOpen.end.toDate());
         cal.addComponent(e);
     });
