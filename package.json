@@ -16,7 +16,7 @@
     "icalendar": "^0.7.1",
     "lodash.range": "^3.0.0",
     "moment": "^2.10.2",
-    "moment-timezone": "^0.3.1",
+    "moment-timezone": "^0.3.1"
   },
   "jshintConfig": {
     "esnext": true,
