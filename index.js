@@ -92,6 +92,13 @@ function generateICAL(openingHours) {
 
 fetchOpeningHours("https://ais.fi/ais/bulletins/envfra.htm", "JYVASKYLA TWR OPR HR:")
 .then(openingHours => {
+
+    if (process.env.DEBUG) {
+        for (let {start, end} of openingHours) {
+            console.error(start.format("D.M HH:mm"), "->", end.format("D.M HH:mm"));
+        }
+    }
+
     process.stdout.write(generateICAL(openingHours));
 })
 .catch(function(err) {
