@@ -64,7 +64,7 @@ function generateICAL(openingHours) {
     openingHours.forEach(towerOpen => {
         var eventID = String(towerOpen.start.unix()) + String(towerOpen.end.unix());
         var e = new icalendar.VEvent(eventID);
-        var summary = "Torni auki";
+        var description = "Torni auki";
 
         var diff = towerOpen.end.diff(towerOpen.start);
         var minutes = diff / 1000 / 60;
@@ -72,14 +72,17 @@ function generateICAL(openingHours) {
         var remainingMinutes =  minutes % 60;
 
         if (fullHours) {
-            summary += " " + fullHours + "h";
+            description += " " + fullHours + "h";
         }
 
         if (remainingMinutes) {
-            summary += " " + remainingMinutes + "min";
+            description += " " + remainingMinutes + "min";
         }
 
-        e.setSummary(summary);
+        description += `. Haettu ${moment().format("D.M.YYYY HH:mm")}.`;
+
+        e.setSummary(`Torni (-${towerOpen.end.format("HH:mm")})`);
+        e.setDescription(description);
         e.setDate(towerOpen.start.toDate(), towerOpen.end.toDate());
         cal.addComponent(e);
     });
