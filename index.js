@@ -13,6 +13,11 @@ function parseUTCTime({month, day, time}) {
     return moment.utc(s, "MMM-D-HHmm").tz("Europe/Helsinki");
 }
 
+function isValidMonth(s) {
+    if (!s) return false;
+     return moment(s, "MMM").format("MMM").toUpperCase() == s;
+}
+
 function fetchOpeningHours(url, headerText) {
     return axios.get(url)
     .then(function(res) {
@@ -25,7 +30,21 @@ function fetchOpeningHours(url, headerText) {
 
 
         return data.reduce((res, entry) => {
-            var [month, days, ...hours] = entry.split(" ");
+            var parts = entry.split(" ");
+
+            if (!isValidMonth(parts[0])) {
+                // Month is missing but it's probably the same as in the
+                // previous entry.
+                let prev = res[res.length-1];
+                if (prev) {
+                    parts.unshift(prev.start.format("MMM").toUpperCase());
+                } else {
+                    // If this is the first one use the current month
+                    parts.unshift(moment().format("MMM").toUpperCase());
+                }
+            }
+
+            var [month, days, ...hours] = parts;
 
             if (days.includes("-")) {
                 let [start, end] = days.split("-").map(d => parseInt(d, 10));
