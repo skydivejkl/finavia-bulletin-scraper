@@ -77,7 +77,7 @@ function fetchOpeningHours(url, headerText) {
 
 }
 
-function generateICAL(openingHours) {
+function generateICAL(openingHours, sourceURL) {
     var cal = new icalendar.iCalendar();
 
     openingHours.forEach(towerOpen => {
@@ -98,7 +98,7 @@ function generateICAL(openingHours) {
             description += " " + remainingMinutes + "min";
         }
 
-        description += `. Haettu ${moment().format("D.M.YYYY HH:mm")}.`;
+        description += `. Haettu ${moment().format("D.M.YYYY HH:mm")} osoitteesta ${sourceURL}`;
 
         e.setSummary(`Torni (-${towerOpen.end.format("HH:mm")})`);
         e.setDescription(description);
@@ -109,7 +109,9 @@ function generateICAL(openingHours) {
     return cal.toString();
 }
 
-fetchOpeningHours("https://ais.fi/ais/bulletins/envfra.htm", "JYVASKYLA TWR OPR HR:")
+var sourceURL = "https://ais.fi/ais/bulletins/envfra.htm";
+
+fetchOpeningHours(sourceURL, "JYVASKYLA TWR OPR HR:")
 .then(openingHours => {
 
     if (process.env.DEBUG) {
@@ -118,7 +120,7 @@ fetchOpeningHours("https://ais.fi/ais/bulletins/envfra.htm", "JYVASKYLA TWR OPR 
         }
     }
 
-    process.stdout.write(generateICAL(openingHours));
+    process.stdout.write(generateICAL(openingHours, sourceURL));
 })
 .catch(function(err) {
     console.error(err.stack);
