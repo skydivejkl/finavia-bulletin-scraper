@@ -111,7 +111,7 @@ function generateICAL(openingHours, sourceURL) {
 
 var sourceURL = "https://ais.fi/ais/bulletins/envfra.htm";
 
-fetchOpeningHours(sourceURL, "JYVASKYLA TWR OPR HR:")
+fetchOpeningHours(sourceURL, "JYVASKYLA TWR OPR HR")
 .then(openingHours => {
 
     if (process.env.DEBUG) {
